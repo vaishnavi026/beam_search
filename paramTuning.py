@@ -1,6 +1,7 @@
 import subprocess
 import re
 import matplotlib.pyplot as plt
+import json
 #tuning hyperparameters -- number of heads and layers
 def plot_results(results):
     for data in results:
@@ -57,8 +58,8 @@ def run_training_and_capture_output(num_head, num_layer, max_iters=500):
     return data
 
 # Range of n_head and n_layer values you want to test
-n_heads = [2 ]
-n_layers = [2]
+n_heads = [6, 8, 12, 16]
+n_layers = [6,8, 10, 12]
 
 results = []
 
@@ -67,6 +68,12 @@ for n_head in n_heads:
         result = run_training_and_capture_output(n_head, n_layer)
         print(result)
         results.append(result)
+
+
+# Save results to a JSON file
+with open('training_results.json', 'w') as file:
+    json.dump(results, file)
+
 # Plot the results
 plot_results(results)
 print(results)
