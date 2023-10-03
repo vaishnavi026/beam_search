@@ -19,8 +19,8 @@ def plot_results(results):
         val_losses = [float(v) for v in val_losses]
 
         plt.figure(figsize=(10, 5))
-        plt.plot(steps, train_losses, label="Train Loss", color='blue')
-        plt.plot(steps, val_losses, label="Validation Loss", color='red')
+        plt.plot(steps, train_losses,'o-', label="Train Loss", color='blue')
+        plt.plot(steps, val_losses, 'o-', label="Validation Loss", color='red')
 
         # Annotating the points
         for i, txt in enumerate(train_losses):
@@ -66,13 +66,13 @@ def run_training_and_capture_output(num_head, num_layer, max_iters=500):
     return data
 
 # Range of n_head and n_layer values you want to test
-n_heads = [2]
-n_layers = [2]
+n_heads = [6, 8, 12, 16]
+n_layers = [6, 8, 10, 12]
 
 results = []
 
-for n_head in n_heads:
-    for n_layer in n_layers:
+for n_head in [2]:
+    for n_layer in [2]:
         result = run_training_and_capture_output(n_head, n_layer)
         print(result)
         results.append(result)
