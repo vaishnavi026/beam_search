@@ -21,6 +21,14 @@ def plot_results(results):
         plt.figure(figsize=(10, 5))
         plt.plot(steps, train_losses, label="Train Loss", color='blue')
         plt.plot(steps, val_losses, label="Validation Loss", color='red')
+
+        # Annotating the points
+        for i, txt in enumerate(train_losses):
+            plt.annotate(f"{txt:.2f}", (steps[i], train_losses[i]), fontsize=9, ha='center', va='bottom')
+
+        for i, txt in enumerate(val_losses):
+            plt.annotate(f"{txt:.2f}", (steps[i], val_losses[i]), fontsize=9, ha='center', va='top')
+
         plt.xlabel("Steps")
         plt.ylabel("Loss")
         plt.title(f"Training for num_head={num_head}, num_layer={num_layer}")
