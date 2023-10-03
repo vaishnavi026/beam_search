@@ -58,8 +58,8 @@ def run_training_and_capture_output(num_head, num_layer, max_iters=500):
     return data
 
 # Range of n_head and n_layer values you want to test
-n_heads = [6, 8, 12, 16]
-n_layers = [6,8, 10, 12]
+n_heads = [2]
+n_layers = [2]
 
 results = []
 
