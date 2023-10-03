@@ -26,6 +26,7 @@ def plot_results(results):
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
+        plt.savefig(f'plot_num_head_{num_head}_num_layer_{num_layer}.png')
         plt.show()
 
 
@@ -56,8 +57,8 @@ def run_training_and_capture_output(num_head, num_layer, max_iters=500):
     return data
 
 # Range of n_head and n_layer values you want to test
-n_heads = [6, 8, 12, 16 ]
-n_layers = [6, 8, 10, 12]
+n_heads = [2 ]
+n_layers = [2]
 
 results = []
 
