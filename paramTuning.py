@@ -71,8 +71,8 @@ n_layers = [6, 8, 10, 12]
 
 results = []
 
-for n_head in [2]:
-    for n_layer in [2]:
+for n_head in n_heads:
+    for n_layer in n_layers:
         result = run_training_and_capture_output(n_head, n_layer)
         print(result)
         results.append(result)
