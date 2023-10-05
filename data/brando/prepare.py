@@ -4,37 +4,6 @@ import pickle
 import requests
 import numpy as np
 
-def read_file(file_name):
-    with open(file_name, 'r', encoding='utf-8') as file:
-        return file.read()
-
-
-def noise_removal(text):
-    # Define your noise patterns here
-    patterns = [
-        re.compile(r'\[Page \d+\]'),  # Example pattern: "[Page 123]"
-        re.compile(r'\s{2,}'),  # Removing extra whitespaces
-        # Add other noise patterns as needed
-    ]
-
-    for pattern in patterns:
-        text = re.sub(pattern, ' ', text)
-
-    return text.strip()
-
-
-files = ["mist_1.txt", "mist_2.txt", "mist_3.txt"]
-
-# Concatenate content
-concatenated_text = ' '.join([read_file(file) for file in files])
-
-# Noise removal
-clean_text = noise_removal(concatenated_text)
-
-# Save cleaned content to a new file (optional)
-with open("input.txt", 'w', encoding='utf-8') as out_file:
-    out_file.write(clean_text)
-
 print("Files concatenated and noise removed successfully!")
 input_file_path = os.path.join(os.path.dirname(__file__), 'input.txt')
 
