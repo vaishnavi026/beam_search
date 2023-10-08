@@ -8,6 +8,7 @@ import torch
 import tiktoken
 from model import GPTConfig, GPT, GPT
 from kl_divergence import *
+from perplexity import *
 
 # -----------------------------------------------------------------------------
 init_from = 'resume' # either 'resume' (from an out_dir) or a gpt2 variant (e.g. 'gpt2-xl')
@@ -105,4 +106,17 @@ Q = get_prob_dist(decode(y[0].tolist()))
 print(P)
 print(Q)
 # Make sure we compute KL Divergence on the words present in P
-print(kl_divergence(P, Q))
+print("KL Divergence:", kl_divergence(P, Q))
+# Calculate perplexity on the evaluation dataset
+eval_data = decode(y[0].tolist())
+likelihoods = [calculate_likelihood(char) for char in eval_data]
+non_zero_likelihoods = [likelihood for likelihood in likelihoods if likelihood > 0]
+
+# Check if all likelihoods are zero
+if len(non_zero_likelihoods) == 0:
+    perplexity = float('inf')
+else:
+    log_likelihood_sum = sum(math.log(likelihood, 2) for likelihood in non_zero_likelihoods)
+    perplexity = 2 ** (- (1 / len(eval_data)) * log_likelihood_sum)
+
+print("Perplexity:", perplexity)
