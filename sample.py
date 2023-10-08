@@ -103,10 +103,10 @@ print(input_text)
 # 2. Tokenize the content of the file and the output string
 P = get_prob_dist(input_text)
 Q = get_prob_dist(decode(y[0].tolist()))
-print(P)
-print(Q)
+# print(P)
+# print(Q)
 # Make sure we compute KL Divergence on the words present in P
-print("KL Divergence:", kl_divergence(P, Q))
+# print("KL Divergence:", kl_divergence(P, Q))
 # Calculate perplexity on the evaluation dataset
 eval_data = decode(y[0].tolist())
 likelihoods = [calculate_likelihood(char) for char in eval_data]
