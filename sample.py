@@ -89,28 +89,28 @@ with torch.no_grad():
             y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
             print(decode(y[0].tolist()))
             print('---------------')
-chars_shake = ['\n', ' ', '!', '$', '&', "'", ',', '-', '.', '3', ':', ';', '?', 'A', 'B', 'C',
-               'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-               'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-               'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-# 1. Read the input text file
-ip_file_path = 'data/brando/input.txt'
-with open(ip_file_path, 'r') as file:
-    input_text = file.read()
-input_text = [d for d in input_text if d in chars_shake]
-
-print(input_text)
-# 2. Tokenize the content of the file and the output string
-P = get_prob_dist(input_text)
-Q = get_prob_dist(decode(y[0].tolist()))
-# print(P)
-# print(Q)
-# Make sure we compute KL Divergence on the words present in P
-# print("KL Divergence:", kl_divergence(P, Q))
-# Calculate perplexity on the evaluation dataset
-eval_data = decode(y[0].tolist())
-likelihoods = [calculate_likelihood(char) for char in eval_data]
-non_zero_likelihoods = [likelihood for likelihood in likelihoods if likelihood > 0]
+# chars_shake = ['\n', ' ', '!', '$', '&', "'", ',', '-', '.', '3', ':', ';', '?', 'A', 'B', 'C',
+#                'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+#                'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+#                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+# # 1. Read the input text file
+# ip_file_path = 'data/brando/input.txt'
+# with open(ip_file_path, 'r') as file:
+#     input_text = file.read()
+# input_text = [d for d in input_text if d in chars_shake]
+#
+# print(input_text)
+# # 2. Tokenize the content of the file and the output string
+# P = get_prob_dist(input_text)
+# Q = get_prob_dist(decode(y[0].tolist()))
+# # print(P)
+# # print(Q)
+# # Make sure we compute KL Divergence on the words present in P
+# # print("KL Divergence:", kl_divergence(P, Q))
+# # Calculate perplexity on the evaluation dataset
+# eval_data = decode(y[0].tolist())
+# likelihoods = [calculate_likelihood(char) for char in eval_data]
+# non_zero_likelihoods = [likelihood for likelihood in likelihoods if likelihood > 0]
 
 # Check if all likelihoods are zero
 if len(non_zero_likelihoods) == 0:
