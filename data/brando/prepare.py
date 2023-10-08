@@ -4,12 +4,18 @@ import pickle
 import requests
 import numpy as np
 
+chars_shake = ['\n', ' ', '!', '$', '&', "'", ',', '-', '.', '3', ':', ';', '?', 'A', 'B', 'C',
+               'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+               'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+               'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
 print("Files concatenated and noise removed successfully!")
 input_file_path = os.path.join(os.path.dirname(__file__), 'input.txt')
 
 with open(input_file_path, 'r') as f:
     data = f.read()
 print(f"length of dataset in characters: {len(data):,}")
+data = [d for d in data if d in chars_shake]
 
 # get all the unique characters that occur in this text
 chars = sorted(list(set(data)))
