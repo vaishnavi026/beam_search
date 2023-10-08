@@ -11,6 +11,7 @@ import math
 import inspect
 from dataclasses import dataclass
 
+import numpy as np
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
@@ -309,6 +310,7 @@ class GPT(nn.Module):
         the sequence max_new_tokens times, feeding the predictions back into the model each time.
         Most likely you'll want to make sure to be in model.eval() mode of operation for this.
         """
+        log_sum = 0
         for _ in range(max_new_tokens):
             # if the sequence context is growing too long we must crop it at block_size
             idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]
@@ -324,7 +326,10 @@ class GPT(nn.Module):
             probs = F.softmax(logits, dim=-1)
             # sample from the distribution
             idx_next = torch.multinomial(probs, num_samples=1)
+            log_sum = log_sum + np.log(probs.gather(1,idx_next)[0][0].numpy())
+
             # append sampled index to the running sequence and continue
             idx = torch.cat((idx, idx_next), dim=1)
 
-        return idx
+        perplexity = np.exp(-log_sum/max_new_tokens)
+        return  perplexity, idx
