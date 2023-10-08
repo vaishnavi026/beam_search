@@ -91,22 +91,22 @@ with torch.no_grad():
             print("Perplexity: ", perplexity)
             print(decode(y[0].tolist()))
             print('---------------')
-# chars_shake = ['\n', ' ', '!', '$', '&', "'", ',', '-', '.', '3', ':', ';', '?', 'A', 'B', 'C',
-#                'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-#                'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-#                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-# # 1. Read the input text file
-# ip_file_path = 'data/brando/input.txt'
-# with open(ip_file_path, 'r') as file:
-#     input_text = file.read()
-# input_text = [d for d in input_text if d in chars_shake]
-#
-# print(input_text)
-# # 2. Tokenize the content of the file and the output string
-# P = get_prob_dist(input_text)
-# Q = get_prob_dist(decode(y[0].tolist()))
-# # print(P)
-# # print(Q)
-# # Make sure we compute KL Divergence on the words present in P
-# # print("KL Divergence:", kl_divergence(P, Q))
+chars_shake = ['\n', ' ', '!', '$', '&', "'", ',', '-', '.', '3', ':', ';', '?', 'A', 'B', 'C',
+               'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+               'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+               'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+# 1. Read the input text file
+ip_file_path = 'data/brando/input.txt'
+with open(ip_file_path, 'r') as file:
+    input_text = file.read()
+input_text = [d for d in input_text if d in chars_shake]
+
+print(input_text)
+# 2. Tokenize the content of the file and the output string
+P = get_prob_dist(input_text)
+Q = get_prob_dist(decode(y[0].tolist()))
+# print(P)
+# print(Q)
+# Make sure we compute KL Divergence on the words present in P
+print("KL Divergence:", kl_divergence(P, Q))
 
