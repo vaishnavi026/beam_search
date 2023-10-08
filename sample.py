@@ -13,8 +13,8 @@ from kl_divergence import *
 init_from = 'resume' # either 'resume' (from an out_dir) or a gpt2 variant (e.g. 'gpt2-xl')
 out_dir = 'out' # ignored if init_from is not 'resume'
 start = "\n" # or "<|endoftext|>" or etc. Can also specify a file, use as: "FILE:prompt.txt"
-num_samples = 10 # number of samples to draw
-max_new_tokens = 2000 # number of tokens generated in each sample
+num_samples = 1 # number of samples to draw
+max_new_tokens = 20000 # number of tokens generated in each sample
 temperature = 0.8 # 1.0 = no change, < 1.0 = less random, > 1.0 = more random, in predictions
 top_k = 200 # retain only the top_k most likely tokens, clamp others to have 0 probability
 seed = 1337
@@ -88,14 +88,19 @@ with torch.no_grad():
             y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
             print(decode(y[0].tolist()))
             print('---------------')
+chars_shake = ['\n', ' ', '!', '$', '&', "'", ',', '-', '.', '3', ':', ';', '?', 'A', 'B', 'C',
+               'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+               'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+               'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 # 1. Read the input text file
 ip_file_path = 'data/brando/input.txt'
 with open(ip_file_path, 'r') as file:
     input_text = file.read()
+input_text = [d for d in input_text if d in chars_shake]
 
-print(input_text[:100])
+print(input_text)
 # 2. Tokenize the content of the file and the output string
-P = get_prob_dist(input_text[:2000])
+P = get_prob_dist(input_text)
 Q = get_prob_dist(decode(y[0].tolist()))
 print(P)
 print(Q)
