@@ -7,4 +7,7 @@ __pycache__/
 *.pkl
 *.pt
 *.pyc
+out-brando
+out-brando-char
+out-shakespeare-char
 # input.txt

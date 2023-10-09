@@ -101,7 +101,7 @@ with open(ip_file_path, 'r') as file:
     input_text = file.read()
 input_text = [d for d in input_text if d in chars_shake]
 
-print(input_text)
+# print(input_text)
 # 2. Tokenize the content of the file and the output string
 P = get_prob_dist(input_text)
 Q = get_prob_dist(decode(y[0].tolist()))
